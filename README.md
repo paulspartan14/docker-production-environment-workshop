@@ -5,13 +5,13 @@
 - Docker
 - Docker compose
 
-### How to install - EC2 instance example
+### How to install - EC2 instance example ubuntu 22
 
 ```
 # Docker install
 
 apt-get update
-apt-get install docker.io
+apt-get install docker.io --yes
 
 # Docker Compose install
 
@@ -21,10 +21,12 @@ chmod +x /usr/local/bin/docker-compose
 
 ## Instalations
 
-### Clone example repository (ssh clone example)
+### Clone example repository
 
 ```
-git clone git@github.com:paulspartan14/docker-production-environment-workshop.git
+cd /home/ubuntu
+git clone https://github.com/paulspartan14/docker-production-environment-workshop.git
+cd docker-production-environment-workshop/
 ```
 
 ### first up nginx-proxy containers (make sure open ports 443 and 80 on Segurity Group)

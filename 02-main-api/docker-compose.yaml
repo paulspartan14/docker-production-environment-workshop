@@ -11,7 +11,7 @@ services:
       - default
     environment:
       - VIRTUAL_HOST=main-api.carmesiservices.com
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=8080
       #- LETSENCRYPT_HOST=main-api.carmesiservices.com
 
 networks:
