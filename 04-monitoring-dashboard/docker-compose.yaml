@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  
+  # database for analytics & monitoring solution
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: main_prometheus
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./config:/etc/prometheus/
+      - prometheus-data:/var/lib/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  # event monitoring and alerting
+  grafana:
+    image: grafana/grafana:latest
+    container_name: main_grafana
+    restart: unless-stopped
+    user: "1000" # grafana needs permisions
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    networks:
+      - default
+    environment:
+      - VIRTUAL_HOST=monitoring.carmesiservices.com
+      - VIRTUAL_PORT=3000
+      #- LETSENCRYPT_HOST=monitoring.carmesiservices.com
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana-data:
+  prometheus-data:
+
+networks:
+  default:
+    external:
+      name: net-proxy

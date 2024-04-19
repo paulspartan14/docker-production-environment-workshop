@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  main-api:
+    image: gcr.io/google-samples/hello-app:1.0
+    container_name: main-api
+    expose:
+      - 8080
+    restart: unless-stopped
+    networks:
+      - default
+    environment:
+      - VIRTUAL_HOST=main-api.carmesiservices.com
+      - VIRTUAL_PORT=3000
+      #- LETSENCRYPT_HOST=main-api.carmesiservices.com
+
+networks:
+  default:
+    external:
+      name: net-proxy

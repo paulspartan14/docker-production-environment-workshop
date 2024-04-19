@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  # monitoring linux host metrics
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+    networks:
+      - default
+
+  # monitoring metrics for the running containers
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    restart: unless-stopped
+    expose:
+    - 8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: net-proxy
