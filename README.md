@@ -60,3 +60,8 @@ docker-compose up -d
 docker-compose logs -f
 
 ```
+
+dashboards
+
+11074
+15331
